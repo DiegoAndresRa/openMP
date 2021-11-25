@@ -6,6 +6,7 @@ Created by Diego Andres Ramirez Garcia on 24/11/2021
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include<omp.h>
 #define n 10
 
 void llenarArreglo(int *a);
@@ -33,9 +34,17 @@ void llenarArreglo(int *a){
 }
 
 void suma(int *A,int *B,int *C){
-  int i;
-  for(i=0;i<n;i++){
-    C[i] = A[i] + B[i];
-    printf("%d\t", C[i]);
+  int i,tid,inicio,fin;
+  omp_set_num_threads(2);
+  #pragma omp parallel private(i,tid,inicio,fin)
+  {
+    tid = omp_get_thread_num();
+    inicio = tid*5;
+    fin = (tid+1)*5-1;
+    
+    for(i = inicio; i <= fin; i++){
+      C[i] = A[i] + B[i];
+      printf("hilo %d calculo C[%d] = %d\n", tid,i,C[i]);
+    }
   }
 }
