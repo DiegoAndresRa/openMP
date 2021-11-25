@@ -1,5 +1,5 @@
 /*
-Version 1.0
+Version 2.0
 Created by Diego Andres Ramirez Garcia on 24/11/2021
 */
 
@@ -46,5 +46,9 @@ void suma(int *A,int *B,int *C){
       C[i] = A[i] + B[i];
       printf("hilo %d calculo C[%d] = %d\n", tid,i,C[i]);
     }
+  }
+
+  for(i = 0;i < n; i++){
+    printf("%d\t", C[i]);
   }
 }
